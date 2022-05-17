@@ -15,8 +15,9 @@ const Campground = require('./models/campground');
 const res = require('express/lib/response');
 const Review = require('./models/review');
 
-const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews');
+const userRoutes = require('./routes/users');
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
 
 
 
@@ -66,8 +67,10 @@ const sessionConfig = {
         next();
     });
 
-    app.use('/campgrounds', campgrounds);
-    app.use('/campgrounds/:id/reviews', reviews);
+    app.use('/', userRoutes);
+    app.use('/campgrounds', campgroundRoutes);
+    app.use('/campgrounds/:id/reviews', reviewRoutes);
+
 
     app.get('/', (req, res) => {
         res.render('home')
