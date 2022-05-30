@@ -5,7 +5,7 @@ const Campground = require('../models/campground');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp'),
 
-//const db = mongoose.connection;
+// const db = mongoose.connection;
 mongoose.connection.on("error", console.error.bind(console, "connection error:"));
 mongoose.connection.once("open", () => {
     console.log("Database connected");
@@ -20,7 +20,7 @@ const seedDB = async () => {
         const price = Math.floor(Math.random() *20) +10;
         const camp = new Campground({
           //YOUR USER ID
-            author: '6284a2aac02f30b56aaef2cb',
+            author: '6285eaaaac2872babfe5cd1b',  //6284a2aac02f30b56aaef2cb
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid necessitatibus doloribus perspiciatis magni iure cum optio modi hic non, placeat quos nemo totam deleniti. Soluta enim quos rem laudantium maiores?',
