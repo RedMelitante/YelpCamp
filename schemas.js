@@ -6,7 +6,7 @@ const extension = (joi) => ({
     type: 'string',
     base: joi.string(),
     messages: {
-        'string.escapeHTML': '{{#label}} must not include HTML'
+        'string.escapeHTML': '{{#label}} must not include HTML!'
     },
     rules: {
         escapeHTML: {
@@ -15,7 +15,7 @@ const extension = (joi) => ({
                     allowedTags: [],
                     allowedAttributes: {},
                 });
-                if (clean !== value) return helpers.error('string.escapeHTML', {value})
+                if (clean !== value) return helpers.error('string.escapeHTML', { value })
                 return clean;
             }
         }
@@ -30,7 +30,7 @@ module.exports.campgroundSchema = Joi.object({
         price: Joi.number().required().min(0),
         // image: Joi.string().required(),
         location: Joi.string().required().escapeHTML(),
-        description: Joi.string().required().escapeHTML(),
+        description: Joi.string().required().escapeHTML()
     }).required(),
     deleteImages: Joi.array()
 });

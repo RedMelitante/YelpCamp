@@ -5,7 +5,7 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken});
 const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
-    const campgrounds = await Campground.find({}).populate('popupText');
+    const campgrounds = await Campground.find({}) //.populate('popupText');
     res.render('campgrounds/index', { campgrounds })
  }
 
@@ -66,7 +66,6 @@ module.exports.updateCampground = async (req, res) => {
         }
         await campground.updateOne({ $pull: { images: { filename:{ $in: req.body.deleteImages } } } })
     }
-    
     req.flash('success', 'Successfully updated Campground');
     res.redirect(`/campgrounds/${campground._id}`);
 }

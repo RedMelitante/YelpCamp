@@ -1,8 +1,6 @@
     <% layout('layouts/boilerplate')%>
     <link rel="stylesheet" href="/stylesheets/stars.css">
 
-
-
     <div class="row">
     <div class="col-6">
       
@@ -15,7 +13,7 @@
           <% }) %> 
         </div>
         <% if(campground.images.length > 1) {%>
-        <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel"  data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
@@ -27,13 +25,13 @@
       </div>
         <div class="card mb-3">
         <div class="card-body">
-          <h5 class="card-title"><%=campground.title%></h5>
-          <p class="card-text"><%=campground.description%></p>
+          <h5 class="card-title"><%= campground.title%></h5>
+          <p class="card-text"><%= campground.description%></p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item text-muted"><%=campground.location%></li>
-          <li class="list-group-item">Submited by <%=campground.author.username%></li>
-          <li class="list-group-item">$<%=campground.price%>/night</li>
+          <li class="list-group-item text-muted"><%= campground.location%></li>
+          <li class="list-group-item">Submited by <%= campground.author.username%></li>
+          <li class="list-group-item">$<%= campground.price%>/night</li>
         </ul>
         <% if ( currentUser && campground.author.equals(currentUser._id)) {%>
         <div class="card-body">
@@ -58,8 +56,8 @@
             <!--<div class="mb-3">
               <label class="form-label" for="rating">Rating</label>
               <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
-            </div>-->
-            <div class="mb-3">
+            </div>
+            <div class="mb-3">-->
             <fieldset class="starability-basic">
               <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked 
               aria-label="No rating." />
@@ -74,7 +72,7 @@
               <input type="radio" id="first-rate5" name="review[rating]" value="5" />
               <label for="first-rate5" title="Amazing">5 stars</label>
             </fieldset>
-          </div>
+          <!--</div>-->
             <div class="mb-3">
               <label class="form-label" for="body">Review Text</label>
               <textarea class="form-control" name="review[body]" id="body" rows="3" cols="30" required>
@@ -116,7 +114,7 @@
 <script src="/javascripts/showPageMap.js"></script>
 
 
-    <footer>
+   <!--- <footer>
         <a href="/campgrounds">All Campgrounds</a>
-    </footer>
+    </footer>-->
 

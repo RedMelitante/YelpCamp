@@ -51,17 +51,17 @@ app.use(mongoSanitize({
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret';
 
-// const store = new MongoDBStore({
-//     url: dbUrl,
-//     secret,
-//     touchAfter: 24 * 60 * 60 
-// });
-
-const store = MongoDBStore.create({
-    mongoUrl: dbUrl,
+const store = new MongoDBStore({
+    url: dbUrl,
     secret,
-    touchAfter: 24 * 60 * 60
-    });
+    touchAfter: 24 * 60 * 60 
+});
+
+// const store = MongoDBStore.create({
+//     mongoUrl: dbUrl,
+//     secret,
+//     touchAfter: 24 * 60 * 60
+//     });
 
 store.on('error', function (e) {
     console.log('session error', e)
@@ -85,50 +85,36 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 
-    // app.use(session({
-    //     store, // MongoDBStore.create(options), //store,
-    //     name: 'session',
-    //     secret,
-    //     resave: false,
-    //     saveUninitialized: true,
-    //     cookie: {
-    //         httpOnly: true,
-    //         // secure: true,
-    //         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    //         maxAge: 1000 * 60 * 60 * 24 * 7,
-    //     }
-    // }
-    // ));
     app.use(flash());
-    // app.use(helmet({
-    //     contentSecurityPolicy: false,
-    //   }));
+    app.use(helmet());
 
-      app.use(helmet());
+    //   app.use(helmet({contentSecurityPolicy: false}));
 
     const scriptSrcUrls = [
-        "https://stackpath.bootstrapcdn.com",
-        "https://getbootstrap.com",
-        "https://api.tiles.mapbox.com",
-        "https://api.mapbox.com",
-        "https://kit.fontawesome.com",
-        "https://cdnjs.cloudflare.com",
+        "https://stackpath.bootstrapcdn.com/",
+        "https://getbootstrap.com/",
+        "https://api.tiles.mapbox.com/",
+        "https://api.mapbox.com/",
+        "https://kit.fontawesome.com/",
+        "https://cdnjs.cloudflare.com/",
         "https://cdn.jsdelivr.net",
+        "https://images.unsplash.com/"
     ];
     const styleSrcUrls = [
-        "https://kit-free.fontawesome.com",
-        "https://stackpath.bootstrapcdn.com",
-        "https://api.mapbox.com",
-        "https://api.tiles.mapbox.com",
-        "https://fonts.googleapis.com",
-        "https://use.fontawesome.com",
-        "https://cdn.jsdelivr.net"
+        "https://kit-free.fontawesome.com/",
+        "https://stackpath.bootstrapcdn.com/",
+        "https://api.mapbox.com/",
+        "https://api.tiles.mapbox.com/",
+        "https://fonts.googleapis.com/",
+        "https://use.fontawesome.com/",
+        "https://cdn.jsdelivr.net/",
+        "https://images.unsplash.com/"
     ];
     const connectSrcUrls = [
-        "https://api.mapbox.com",
-        "https://a.tiles.mapbox.com",
-        "https://b.tiles.mapbox.com",
-        "https://events.mapbox.com",
+        "https://api.mapbox.com/",
+        "https://a.tiles.mapbox.com/",
+        "https://b.tiles.mapbox.com/",
+        "https://events.mapbox.com/"
     ];
     const fontSrcUrls = [];
     app.use(
@@ -147,7 +133,7 @@ app.use(session(sessionConfig));
                     "data:",
                     "https://res.cloudinary.com/dwkmibftv", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
                     "https://images.unsplash.com",
-                    // "https://res.cloudinary.com",
+                    "https://res.cloudinary.com",
                 ],
                 fontSrc: ["'self'", ...fontSrcUrls],
             },
@@ -168,9 +154,9 @@ app.use(session(sessionConfig));
         next();
     });
 
-    app.use('/', userRoutes);
-    app.use('/campgrounds', campgroundRoutes);
-    app.use('/campgrounds/:id/reviews', reviewRoutes);
+    app.use('/', userRoutes)
+    app.use('/campgrounds', campgroundRoutes)
+    app.use('/campgrounds/:id/reviews', reviewRoutes)
 
 
     app.get('/', (req, res) => {
@@ -181,15 +167,15 @@ app.use(session(sessionConfig));
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
-});
+})
 
 app.use((err, req, res, next) => {
-    const {statusCode = 500, message = 'Something went wrong'} = err;
+    const { statusCode = 500 } = err;
     if (!err.message) err.message = 'Oh no, Something went wrong!';
-    res.status(statusCode).render('error', {err});
+    res.status(statusCode).render('error', { err })
 })
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Serving on port ${port}`);
+    console.log(`Serving on port ${port}`)
 })

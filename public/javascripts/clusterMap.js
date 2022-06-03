@@ -1,14 +1,14 @@
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
-container: 'cluster-map',
-style: 'mapbox://styles/mapbox/light-v10',
-center: [-103.5917, 40.6699],
-zoom: 3
-});
+    container: 'cluster-map',
+    style: 'mapbox://styles/mapbox/light-v10',
+    center: [-103.5917, 40.6699],
+    zoom: 3
+    });
  
 map.addControl(new mapboxgl.NavigationControl());
 
-map.on('load', () => {
+map.on('load', function () {
 // Add a new source from our GeoJSON data and
 // set the 'cluster' option to true. GL-JS will
 // add the point_count property to your source data.
@@ -36,7 +36,7 @@ paint: {
 'circle-color': [
 'step',
 ['get', 'point_count'],
-'#03A9F4',
+'#00BCD4',
 10,
 '#2196F3',
 30,
@@ -103,7 +103,7 @@ zoom: zoom
 // the location of the feature, with
 // description HTML from its properties.
 map.on('click', 'unclustered-point', (e) => {
-const {popUpMarkup} = e.features[0].properties;
+const { popUpMarkup } = e.features[0].properties;
 const coordinates = e.features[0].geometry.coordinates.slice();
 
  
